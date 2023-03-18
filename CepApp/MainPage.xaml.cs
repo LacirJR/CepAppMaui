@@ -1,12 +1,8 @@
 ﻿using CepApp.Entidades;
 using CepApp.Entidades.Districts;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Collections.ObjectModel;
-using System.Net.Http.Headers;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
+
 
 namespace CepApp;
 
@@ -28,7 +24,7 @@ public partial class MainPage : TabbedPage
 
         var client = new RestClient();
         var request = new RestRequest($"https://viacep.com.br/ws/{cep}/json/", Method.Get);
-        var endereco = client.Execute<ResponseCep>(request).Data;
+        var endereco = client.Execute<ResponseCepDto>(request).Data;
 
         Logradouro.Text = $"Rua/Avenida: {endereco.logradouro}";
         Bairro.Text = $"Bairro: {endereco.bairro}";
@@ -44,7 +40,7 @@ public partial class MainPage : TabbedPage
 
             var client = new RestClient();
             var request = new RestRequest("https://servicodados.ibge.gov.br/api/v1/localidades/estados", Method.Get);
-            var response = client.Execute<List<DistrictsResponse>>(request).Data;
+            var response = client.Execute<List<DistrictsResponseDto>>(request).Data;
 
             var ufs = response.OrderBy(x => x.sigla).Select(x => x.sigla);
 
@@ -74,7 +70,7 @@ public partial class MainPage : TabbedPage
             }
             var client = new RestClient();
             var request = new RestRequest($"https://servicodados.ibge.gov.br/api/v1/localidades/estados/{uf}/municipios", Method.Get);
-            var response = client.Execute<List<CitiesResponse>>(request).Data;
+            var response = client.Execute<List<CitiesResponseDto>>(request).Data;
             
 
             var cities = response.Select(x => x.nome).OrderBy(x => x);
@@ -104,7 +100,7 @@ public partial class MainPage : TabbedPage
 
                 var client = new RestClient();
                 var request = new RestRequest($"https://viacep.com.br/ws/{uf}/{cidade}/{logradouro}/json/", Method.Get);
-                var response = client.Execute<List<ResponseCep>>(request).Data;
+                var response = client.Execute<List<ResponseCepDto>>(request).Data;
 
 
 

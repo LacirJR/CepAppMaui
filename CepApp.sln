@@ -3,7 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CepApp", "CepApp\CepApp.csproj", "{C20997AD-624F-414A-9BD3-FC7D29C53D74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CepApp.App", "CepApp\CepApp.App.csproj", "{C20997AD-624F-414A-9BD3-FC7D29C53D74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3DEA9AC0-0786-49D1-95C6-E18C8AE1F7C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{F348E515-2718-43EC-898B-773CD72045B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{2E0720C1-E36B-4763-97A4-19CF3DA93C6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CepApp.Domain", "CepApp.Domain\CepApp.Domain.csproj", "{55359F57-19A2-4750-B438-ED08D5BA789F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CepApp.Gateway.Adapter", "CepApp.Gateway.Adapter\CepApp.Gateway.Adapter.csproj", "{B8EA491A-1478-4978-AF92-17E037E4055B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CepApp.Application", "CepApp.Application\CepApp.Application.csproj", "{1FC81172-1B93-4AAE-B59C-E28E49C7A722}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CepApp.IoC", "CepApp.IoC\CepApp.IoC.csproj", "{7515ACE1-AF42-4C6A-BD6F-D8C4F2241E03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +31,32 @@ Global
 		{C20997AD-624F-414A-9BD3-FC7D29C53D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C20997AD-624F-414A-9BD3-FC7D29C53D74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C20997AD-624F-414A-9BD3-FC7D29C53D74}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{55359F57-19A2-4750-B438-ED08D5BA789F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55359F57-19A2-4750-B438-ED08D5BA789F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55359F57-19A2-4750-B438-ED08D5BA789F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55359F57-19A2-4750-B438-ED08D5BA789F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8EA491A-1478-4978-AF92-17E037E4055B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8EA491A-1478-4978-AF92-17E037E4055B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8EA491A-1478-4978-AF92-17E037E4055B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8EA491A-1478-4978-AF92-17E037E4055B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC81172-1B93-4AAE-B59C-E28E49C7A722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC81172-1B93-4AAE-B59C-E28E49C7A722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC81172-1B93-4AAE-B59C-E28E49C7A722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC81172-1B93-4AAE-B59C-E28E49C7A722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7515ACE1-AF42-4C6A-BD6F-D8C4F2241E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7515ACE1-AF42-4C6A-BD6F-D8C4F2241E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7515ACE1-AF42-4C6A-BD6F-D8C4F2241E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7515ACE1-AF42-4C6A-BD6F-D8C4F2241E03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C20997AD-624F-414A-9BD3-FC7D29C53D74} = {2E0720C1-E36B-4763-97A4-19CF3DA93C6A}
+		{55359F57-19A2-4750-B438-ED08D5BA789F} = {3DEA9AC0-0786-49D1-95C6-E18C8AE1F7C5}
+		{B8EA491A-1478-4978-AF92-17E037E4055B} = {F348E515-2718-43EC-898B-773CD72045B7}
+		{1FC81172-1B93-4AAE-B59C-E28E49C7A722} = {3DEA9AC0-0786-49D1-95C6-E18C8AE1F7C5}
+		{7515ACE1-AF42-4C6A-BD6F-D8C4F2241E03} = {3DEA9AC0-0786-49D1-95C6-E18C8AE1F7C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}

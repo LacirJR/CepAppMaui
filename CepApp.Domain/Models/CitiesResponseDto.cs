@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CepApp.Entidades.Districts
 {
-    public class CitiesResponse
+    public class CitiesResponseDto
     {
         public int id { get; set; }
         public string nome { get; set; }
