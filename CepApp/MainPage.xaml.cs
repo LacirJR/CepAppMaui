@@ -1,15 +1,19 @@
 ﻿using CepApp.Entidades;
 using CepApp.Entidades.Districts;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 using System.Collections.ObjectModel;
+using System.Net.Http.Headers;
 using System.Runtime.ConstrainedExecution;
+using System.Text;
 
 namespace CepApp;
 
 public partial class MainPage : TabbedPage
 {
-    ObservableCollection<CepViewModel> Cep = new();
-    public ObservableCollection<CepViewModel> Ceps { get { return Cep; } }
+    ObservableCollection<CepViewModel> ListCep = new();
+    public ObservableCollection<CepViewModel> ListCeps { get { return ListCep; } }
 
     public MainPage()
     {
@@ -22,14 +26,9 @@ public partial class MainPage : TabbedPage
         var cep = ((Entry)sender).Text;
         cep = cep.Replace(".", "").Replace("-", "");
 
-        HttpClient client = new HttpClient();
-        var result = client.SendAsync(
-                    new HttpRequestMessage(HttpMethod.Get, $"https://viacep.com.br/ws/{cep}/json/"))
-                    .GetAwaiter()
-                    .GetResult();
-
-        var response = result.Content.ReadAsStringAsync().Result;
-        var endereco = JsonConvert.DeserializeObject<ResponseCep>(response);
+        var client = new RestClient();
+        var request = new RestRequest($"https://viacep.com.br/ws/{cep}/json/", Method.Get);
+        var endereco = client.Execute<ResponseCep>(request).Data;
 
         Logradouro.Text = $"Rua/Avenida: {endereco.logradouro}";
         Bairro.Text = $"Bairro: {endereco.bairro}";
@@ -38,70 +37,98 @@ public partial class MainPage : TabbedPage
         DDD.Text = $"DDD: {endereco.ddd}";
     }
 
-    public async void ListarUfs()
+    public  void ListarUfs()
     {
-
-        HttpClient client = new HttpClient();
-        var result = await client.GetAsync("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
-
-        var response = await result.Content.ReadAsStringAsync();
-        var districts = JsonConvert.DeserializeObject<List<DistrictsResponse>>(response);
-        var ufs = districts.OrderBy(x => x.sigla).Select(x => x.sigla);
-
-        foreach (var uf in ufs)
+        try
         {
-            Ufs.Items.Add(uf);
-        }
-    }
 
-    private async void Ufs_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        var picker = (Picker)sender;
-        int selectedIndex = picker.SelectedIndex;
-        string uf = "";
-        if (selectedIndex != -1)
-        {
-            uf = picker.Items[selectedIndex];
-        }
+            var client = new RestClient();
+            var request = new RestRequest("https://servicodados.ibge.gov.br/api/v1/localidades/estados", Method.Get);
+            var response = client.Execute<List<DistrictsResponse>>(request).Data;
 
-        HttpClient client = new HttpClient();
-        var result = await client.GetAsync($"https://servicodados.ibge.gov.br/api/v1/localidades/estados/{uf}/municipios");
+            var ufs = response.OrderBy(x => x.sigla).Select(x => x.sigla);
 
-        var response = await result.Content.ReadAsStringAsync();
-        var districts = JsonConvert.DeserializeObject<List<CitiesResponse>>(response);
-
-        var cities = districts.Select(x => x.nome).OrderBy(x => x);
-
-        foreach (var city in cities)
-        {
-            Cidades.Items.Add(city);
-        }
-
-    }
-
-    private async void LogradouroRequest_Completed(object sender, EventArgs e)
-    {
-        var logradouro = ((Entry)sender).Text;
-        if (Cidades.SelectedIndex != -1 && Ufs.SelectedIndex != -1)
-        {
-            var cidade = Cidades.Items[Cidades.SelectedIndex];
-            var uf = Ufs.Items[Ufs.SelectedIndex];
-            HttpClient client = new HttpClient();
-            var result = await client.GetAsync($"https://viacep.com.br/ws/{uf}/{cidade}/{logradouro}/json/");
-            var response = await result.Content.ReadAsStringAsync();
-            var enderecos = JsonConvert.DeserializeObject<List<ResponseCep>>(response);
-
-
-            foreach (var endereco in enderecos)
+            foreach (var uf in ufs)
             {
-                var cep = new CepViewModel();
-                cep.Endereco = $"{endereco.logradouro}, {endereco.bairro}.";
-                cep.Cep = $" {endereco.localidade}/{endereco.uf} - {endereco.cep}";
-                Ceps.Add(cep);
+                Ufs.Items.Add(uf);
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
+
+    private  void Ufs_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+
+
+            var picker = (Picker)sender;
+            int selectedIndex = picker.SelectedIndex;
+            string uf = "";
+            if (selectedIndex != -1)
+            {
+                uf = picker.Items[selectedIndex];
+            }
+            var client = new RestClient();
+            var request = new RestRequest($"https://servicodados.ibge.gov.br/api/v1/localidades/estados/{uf}/municipios", Method.Get);
+            var response = client.Execute<List<CitiesResponse>>(request).Data;
+            
+
+            var cities = response.Select(x => x.nome).OrderBy(x => x);
+            Cidades.Items.Clear();
+            foreach (var city in cities)
+            {
+                Cidades.Items.Add(city);
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+
+    }
+
+    private  void LogradouroRequest_Completed(object sender, EventArgs e)
+    {
+        try
+        {
+            var logradouro = ((Entry)sender).Text;
+            if (Cidades.SelectedIndex != -1 && Ufs.SelectedIndex != -1)
+            {
+                var cidade = Cidades.Items[Cidades.SelectedIndex];
+                var uf = Ufs.Items[Ufs.SelectedIndex];
+
+                var client = new RestClient();
+                var request = new RestRequest($"https://viacep.com.br/ws/{uf}/{cidade}/{logradouro}/json/", Method.Get);
+                var response = client.Execute<List<ResponseCep>>(request).Data;
+
+
+
+                ListCeps.Clear();
+
+                foreach (var endereco in response)
+                {
+                   
+                    ListCeps.Add(new CepViewModel
+                    {
+                        Cep = endereco.cep,
+                        Endereco = $"{endereco.logradouro}, {endereco.bairro} - {endereco.localidade}/{endereco.uf}",
+                        Detalhes = $"{endereco.complemento}"
+                    });
+
+                }
+                ListaCep.ItemsSource = ListCeps;
 
             }
 
-            ListaCep.ItemsSource = Ceps;
+        } 
+        catch (Exception ex)
+        {
+
         }
     }
 }

@@ -8,7 +8,8 @@ namespace CepApp.Entidades
 {
     public class CepViewModel
     {
-        public string Endereco;
-        public string Cep;
+        public string Endereco { get; set; }
+        public string Cep { get; set; }
+        public string Detalhes { get; set; }
     }
 }
