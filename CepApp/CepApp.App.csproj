@@ -15,7 +15,7 @@
 		<ApplicationTitle>CepApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.cepapp</ApplicationId>
+		<ApplicationId>com.lacir.cepapp</ApplicationId>
 		<ApplicationIdGuid>13930da3-381b-4270-b175-77c20527b1dd</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -58,6 +58,20 @@
 	  <PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="RestSharp" Version="109.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\CepApp.Domain\CepApp.Domain.csproj" />
+	  <ProjectReference Include="..\CepApp.IoC\CepApp.IoC.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Cep.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Endereco.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

@@ -1,11 +1,14 @@
-﻿namespace CepApp;
+﻿using CepApp.Domain.Interfaces;
 
-public partial class App : Application
+namespace CepApp;
+
+public partial class App : Microsoft.Maui.Controls.Application
 {
-	public App()
+    public App(ICepService cepService)
 	{
+		
 		InitializeComponent();
 
-		MainPage = new MainPage();
+		MainPage = new MainPage(cepService);
 	}
 }

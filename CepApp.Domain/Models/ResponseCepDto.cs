@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CepApp.Entidades
 {
-    public class ResponseCep
+    public class ResponseCepDto
     {
         public string cep { get; set; }
         public string logradouro { get; set; }
