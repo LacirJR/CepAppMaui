@@ -62,6 +62,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\CepApp.Domain\CepApp.Domain.csproj" />
+	  <ProjectReference Include="..\CepApp.Domain\CepApp.Domains.csproj" />
+	  <ProjectReference Include="..\CepApp.IoC\CepApp.IoC.csproj" />
 	</ItemGroup>
 
 </Project>

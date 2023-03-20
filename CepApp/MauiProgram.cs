@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-
-
 namespace CepApp;
 
 public static class MauiProgram

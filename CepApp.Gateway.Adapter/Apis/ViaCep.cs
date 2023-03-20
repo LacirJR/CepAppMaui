@@ -13,21 +13,15 @@ namespace CepApp.Gateway.Adapter.Apis
     {
         private readonly IHttpService _http;
         public ViaCep(IHttpService htpp)
-        {
-            _http = htpp;
-        }
+            => _http = htpp;
+
 
         public ResponseCepDto BuscarEndereco(string cep)
-        {
-            string url = $"https://viacep.com.br/ws/{cep}/json/";
-            return _http.Get<ResponseCepDto>(url);
-        }
+            => _http.Get<ResponseCepDto>($"https://viacep.com.br/ws/{cep}/json/");
+
 
         public ResponseCepDto BuscarCep(string uf, string cidade, string logradouro)
-        {
-            string url = $"https://viacep.com.br/ws/{uf}/{cidade}/{logradouro}/json/";
+            => _http.Get<ResponseCepDto>($"https://viacep.com.br/ws/{uf}/{cidade}/{logradouro}/json/");
 
-            return _http.Get<ResponseCepDto>(url);
-        }
     }
 }
