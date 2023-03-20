@@ -62,8 +62,13 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\CepApp.Domain\CepApp.Domain.csproj" />
-	  <ProjectReference Include="..\CepApp.Domain\CepApp.Domains.csproj" />
 	  <ProjectReference Include="..\CepApp.IoC\CepApp.IoC.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Cep.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

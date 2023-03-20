@@ -10,7 +10,7 @@ namespace CepApp.Domain.Adapters
     public interface IViaCep
     {
         ResponseCepDto BuscarEndereco(string cep);
-        ResponseCepDto BuscarCep(string uf, string cidade, string logradouro);
+        List<ResponseCepDto> BuscarCeps(string uf, string cidade, string logradouro);
 
     }
 }

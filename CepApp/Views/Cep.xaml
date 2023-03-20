@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="CepApp.Views.Cep"
+             Title="CEP" IconImageSource="search_icon.svg">
+        <ScrollView>
+            <VerticalStackLayout
+            Padding="30,0"
+            Margin="5"
+            VerticalOptions="Start">
+                <Border Padding="5">
+                    <Entry Keyboard="Numeric" Placeholder="Digite o CEP" Completed="BuscarCep"  VerticalOptions="Start" MaxLength="10">
+                        <Entry.Behaviors>
+                            <toolkit:MaskedBehavior  Mask="XX.XXX-XXX" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Border>
+
+                <Border x:Name="BorderError"  IsVisible="false">
+                    <Label x:Name="Error"/>
+                </Border>
+                <Label x:Name="Logradouro" Margin="0,15, 0, 0"/>
+
+                <Label x:Name="Bairro" Margin="0,15, 0, 0" />
+
+                <Label x:Name="Cidade" Margin="0,15, 0, 0"/>
+
+                <Label x:Name="Estado" Margin="0,15, 0, 0"/>
+
+                <Label x:Name="DDD" Margin="0,15, 0, 0"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+</ContentPage>

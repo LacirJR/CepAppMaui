@@ -20,8 +20,8 @@ namespace CepApp.Gateway.Adapter.Apis
             => _http.Get<ResponseCepDto>($"https://viacep.com.br/ws/{cep}/json/");
 
 
-        public ResponseCepDto BuscarCep(string uf, string cidade, string logradouro)
-            => _http.Get<ResponseCepDto>($"https://viacep.com.br/ws/{uf}/{cidade}/{logradouro}/json/");
+        public List<ResponseCepDto> BuscarCeps(string uf, string cidade, string logradouro)
+            => _http.Get<List<ResponseCepDto>>($"https://viacep.com.br/ws/{uf}/{cidade}/{logradouro}/json/");
 
     }
 }

@@ -18,7 +18,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\CepApp.Application\CepApp.Application.csproj" />
 	  <ProjectReference Include="..\CepApp.Domain\CepApp.Domain.csproj" />
+	  <ProjectReference Include="..\CepApp.Gateway.Adapter\CepApp.Gateway.Adapter.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -18,6 +18,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="RestSharp" Version="109.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\CepApp.Domain\CepApp.Domain.csproj" />
 	</ItemGroup>
 

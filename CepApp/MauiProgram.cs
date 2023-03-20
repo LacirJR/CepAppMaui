@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using CepApp.IoC;
 namespace CepApp;
 
 public static class MauiProgram
@@ -9,6 +10,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+			.AddServices()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
